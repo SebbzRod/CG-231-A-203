@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Ejercicio semana 9 computacion grafica</title>
+		<style>
+			body { margin: 0; }
+		</style>
+	</head>
+	<body>
+		<script type="module">
+			import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+
+						
+			const scene = new THREE.Scene();
+			const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+			const renderer = new THREE.WebGLRenderer();
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			document.body.appendChild(renderer.domElement);
+
+			const dimensiones = [[1, 1, 1], [0.5, 0.5, 0.5], [1.5, 1.5, 1.5]];
+			const color = [0xff0000, 0x00ff00, 0x0000ff];
+			const material = [new THREE.MeshBasicMaterial({ color: color[0]}), new THREE.MeshNormalMaterial({ color: color[1]}), new THREE.MeshMatcapMaterial({ color: color[2]})];
+
+			const geometry = [];
+			for ( let i = 0; i < 3; i++) {
+		
+				geometry.push(new THREE.BoxGeometry(...dimensiones[i]));
+
+			}
+
+			const cubo = [];
+			for ( let i = 0; i < 3; i++) {
+			
+				cubo.push(new THREE.Mesh(geometry[i], material[i]));
+		
+			}
+
+			cubo[1].position.x = 5;
+			cubo[2].position.x = -5;
+			function animate() {
+				requestAnimationFrame( animate );
+				
+				for ( let i = 0; i < 3; i++) {
+			
+					cubo[i].rotation.x += 0.01;
+					cubo[i].rotation.y += 0.001;
+	
+				}
+
+				renderer.render( scene, camera );
+			}
+			animate();
+
+			for (let i = 0; i < 3; i++) {
+				
+				scene.add (cubo[i]);
+			}
+
+			camera.position.z = 5;
+			renderer.render(scene, camera)
+
+		</script>
+	</body>
+</html>
