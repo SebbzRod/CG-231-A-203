@@ -18,11 +18,13 @@
 			const renderer = new THREE.WebGLRenderer();
 			renderer.setSize(window.innerWidth, window.innerHeight);
 			document.body.appendChild(renderer.domElement);
-
+			
+			//Se definen las variables constantes para la creacion de los cubos
 			const dimensiones = [[1, 1, 1], [0.5, 0.5, 0.5], [1.5, 1.5, 1.5]];
 			const color = [0xff0000, 0x00ff00, 0x0000ff];
 			const material = [new THREE.MeshBasicMaterial({ color: color[0]}), new THREE.MeshNormalMaterial({ color: color[1]}), new THREE.MeshMatcapMaterial({ color: color[2]})];
-
+			
+			//Se generan dos metodos "for", el primero para asignar las dimensiones a cada cubo, y el segundo para generar cada uno de los tres cubos  
 			const geometry = [];
 			for ( let i = 0; i < 3; i++) {
 		
@@ -36,9 +38,12 @@
 				cubo.push(new THREE.Mesh(geometry[i], material[i]));
 		
 			}
-
+			
+			//Se trasladan los cubos 1 y 2 en el eje X usando la instruccion "position.x"
 			cubo[1].position.x = 5;
 			cubo[2].position.x = -5;
+			
+			//Funcion para animar los cubos y roten sobre si mismos
 			function animate() {
 				requestAnimationFrame( animate );
 				
@@ -52,7 +57,7 @@
 				renderer.render( scene, camera );
 			}
 			animate();
-
+			
 			for (let i = 0; i < 3; i++) {
 				
 				scene.add (cubo[i]);
